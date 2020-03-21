@@ -1,0 +1,30 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/nest-auth/src",
+  "monorepo": true,
+  "root": "apps/nest-auth",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/nest-auth/tsconfig.app.json"
+  },
+  "projects": {
+    "nest-auth": {
+      "type": "application",
+      "root": "apps/nest-auth",
+      "entryFile": "main",
+      "sourceRoot": "apps/nest-auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/nest-auth/tsconfig.app.json"
+      }
+    },
+    "auth": {
+      "type": "library",
+      "root": "libs/auth",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth/tsconfig.lib.json"
+      }
+    }
+  }
+}
