@@ -1,11 +1,11 @@
-import { Controller, Post } from '@nestjs/common'
-import { CookieSessionLogin } from './auth.decorator'
-import { LocalStrategy } from './local.strategy'
+import { Controller, Post, Req, Get } from '@nestjs/common'
+import { Authenticate } from './auth.decorator'
 
 @Controller()
 export class AuthController {
-  constructor(private readonly strategy: LocalStrategy) {}
   @Post('login')
-  @CookieSessionLogin()
-  async login() {}
+  @Authenticate('local')
+  async login(@Req() req) {
+    console.log(req.user)
+  }
 }
