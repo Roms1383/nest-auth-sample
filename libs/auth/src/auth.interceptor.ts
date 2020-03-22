@@ -1,9 +1,15 @@
-import { CallHandler, ExecutionContext, Inject, Injectable, NestInterceptor } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { SUCCESS_REDIRECT } from './constants';
+import {
+  CallHandler,
+  ExecutionContext,
+  Inject,
+  Injectable,
+  NestInterceptor,
+} from '@nestjs/common'
+import { Observable } from 'rxjs'
+import { SUCCESS_REDIRECT } from './constants'
 
 @Injectable()
-export class Authorized implements NestInterceptor {
+export class Authenticated implements NestInterceptor {
   @Inject(SUCCESS_REDIRECT)
   public successRedirect: string // '/secured-page'
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {

@@ -1,9 +1,16 @@
-import { ArgumentsHost, Catch, ExceptionFilter, ForbiddenException, Inject, UnauthorizedException } from '@nestjs/common'
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  ForbiddenException,
+  Inject,
+  UnauthorizedException,
+} from '@nestjs/common'
 import { Response } from 'express'
 import { FAILURE_REDIRECT } from './constants'
 
 @Catch(UnauthorizedException, ForbiddenException)
-export class Unauthorized implements ExceptionFilter {
+export class Unauthenticated implements ExceptionFilter {
   @Inject(FAILURE_REDIRECT)
   public failureRedirect: string // '/login-page'
   catch(

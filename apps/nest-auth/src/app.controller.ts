@@ -1,11 +1,10 @@
-import { AuthenticatedGuard, Unauthorized } from '@kroms/auth'
-import { Controller, Get, UseFilters, UseGuards } from '@nestjs/common'
+import { CookieSessionAuth } from '@kroms/auth';
+import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
   @Get('secured-page')
-  @UseGuards(AuthenticatedGuard)
-  @UseFilters(Unauthorized) // beware here it requires LocalStrategy explicit export in AuthModule
+  @CookieSessionAuth()
   async securedPage() {
     console.log(`@AppController /secured-page`)
     return 'secured page'
