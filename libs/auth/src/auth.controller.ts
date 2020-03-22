@@ -5,10 +5,12 @@ import {
   Res,
   UseFilters,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common'
 import { Unauthorized } from './auth.filter'
 import { LocalStrategy } from './local.strategy'
 import { LoginGuard } from './login.guard'
+import { Authorized } from './auth.interceptor'
 
 @Controller()
 export class AuthController {
@@ -16,10 +18,6 @@ export class AuthController {
   @Post('login')
   @UseGuards(LoginGuard)
   @UseFilters(Unauthorized)
-  async login(@Req() req, @Res() res) {
-    console.log(`@AuthController /login ${JSON.stringify(req.user)}`)
-    return req.user
-      ? res.redirect(this.strategy.successRedirect)
-      : res.redirect(this.strategy.failureRedirect)
-  }
+  @UseInterceptors(Authorized)
+  async login(@Req() req, @Res() res) { console.log(`@AuthController /login ${JSON.stringify(req.user)}`) }
 }

@@ -5,7 +5,7 @@ import * as cookieSession from 'cookie-session'
 import * as passport from 'passport'
 import { AppModule } from './app.module'
 
-jest.setTimeout(20000)
+// jest.setTimeout(20000)
 
 const username = 'john.doe@email.com'
 const password = 'some-password'

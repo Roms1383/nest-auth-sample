@@ -1,16 +1,11 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  ForbiddenException,
-  UnauthorizedException,
-} from '@nestjs/common'
+import { ArgumentsHost, Catch, ExceptionFilter, ForbiddenException, Inject, UnauthorizedException } from '@nestjs/common'
 import { Response } from 'express'
-import { LocalStrategy } from './local.strategy'
+import { FAILURE_REDIRECT } from './constants'
 
 @Catch(UnauthorizedException, ForbiddenException)
 export class Unauthorized implements ExceptionFilter {
-  constructor(private readonly strategy: LocalStrategy) {}
+  @Inject(FAILURE_REDIRECT)
+  public failureRedirect: string // '/login-page'
   catch(
     _exception: ForbiddenException | UnauthorizedException,
     host: ArgumentsHost,
@@ -20,6 +15,6 @@ export class Unauthorized implements ExceptionFilter {
     )
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()
-    response.redirect(this.strategy.failureRedirect)
+    response.redirect(this.failureRedirect)
   }
 }
